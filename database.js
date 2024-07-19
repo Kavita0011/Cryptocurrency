@@ -1,29 +1,46 @@
 import express from "express"
+import axios from "axios"
 import bodyParser from "body-parser"
-import pg from "pg"
-import { database, password } from "pg/lib/defaults";
+import pg from "pg";
+// import { database, password } from "pg/lib/defaults";
 
 const app=express();
 const port=4000;
+
+app.use(express.static("public"));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 const db=new pg.Client(
 {
     host:"localhost",
     user:"postgres",
-    database:"crypto",
+    database:"Cryptocurrency",
     password:"KAVITA",
-    port:5432
+    port:5432,
 
 });
 db.connect();
+app.get("/",async (req,res)=>{
+    try{
+const response= await axios.get("https://api.wazirx.com/api/v2/tickers");
+const result=response.data;
 
+res.render("index.ejs",{ data : response.data });
+}catch(error){
+console.error("failed to make request",error.message);
+res.render("index.ejs",
+    {
+         error:error.message 
+    });
+}});
 let quiz=[
-   { name_crypto:bitcoin_name,
-    last_price:last,
-    buy_price:buy,
-    sell_price: sell, 
-    volume_price: vol, 
-    base_unit:base_unit}
+   { name_crypto:"bitcoin_name",
+    last_price:123456.0,
+    buy_price:123456.0,
+    sell_price: 123456.0, 
+    volume_price: 123456.0, 
+    base_unit:"base_unit",
+}
 ];
 app.post("/",async(req,res) =>{
     try{
@@ -36,7 +53,7 @@ app.post("/",async(req,res) =>{
         console.log(result);
 
         for(i=1;i<=result.length;i++){
-        const bitcoin_name=Crypto;
+        const bitcoin_name =Crypto;
         const buy=response.data.ticker.buy;
         const last=response.data.ticker.last;
         const base_unit=response.data.ticker.base_unit;
@@ -45,8 +62,9 @@ app.post("/",async(req,res) =>{
         const high=response.data.ticker.high;
         const vol=response.data.ticker.vol;
     
-    const insertQuery=`INSERT INTO crypto( id, name_crypto, last_price, buy_price, sell_price, volume_price, base_unit) VALUES ( ${bitcoin_name},${last},${buy}, ${sell},  ${vol}, ${base_unit})`;
-    db.query( insertQuery,(err,res)=>{
+    const insertQuery=`INSERT INTO crypto( id, name_crypto, last_price, buy_price, sell_price, volume_price, base_unit) VALUES ($1,$2,$3,$4,$5,$6,$7)`;
+    const values=` ${bitcoin_name},${last},${buy}, ${sell},  ${vol}, ${base_unit}`;
+    db.query( insertQuery,values,(err,res)=>{
         if(err){
             console.log(err.stack);
         }else{
