@@ -38,24 +38,24 @@ app.post("/",async(req,res) =>{
         for(i=1;i<=result.length;i++){
         const bitcoin_name=Crypto;
         const buy=response.data.ticker.buy;
-        console.log(buy)
         const last=response.data.ticker.last;
         const base_unit=response.data.ticker.base_unit;
         const sell=response.data.ticker.sell;
         const low=response.data.ticker.low;
         const high=response.data.ticker.high;
         const vol=response.data.ticker.vol;
-    }
-    db.query(`INSERT INTO crypto( id, name_crypto, last_price, buy_price, sell_price, volume_price, base_unit) VALUES ( ${bitcoin_name},${last},${buy}, ${sell},  ${vol}, ${base_unit})`,(err,res)=>{
+    
+    const insertQuery=`INSERT INTO crypto( id, name_crypto, last_price, buy_price, sell_price, volume_price, base_unit) VALUES ( ${bitcoin_name},${last},${buy}, ${sell},  ${vol}, ${base_unit})`;
+    db.query( insertQuery,(err,res)=>{
         if(err){
             console.log(err.stack);
         }else{
           quiz=res.rows;  
-        }
-    console.log(`${bitcoin_name} ${sell} ${last} ${low} ${high} ${vol}`)
+        }})
+    }// console.log(`${bitcoin_name} ${sell} ${last} ${low} ${high} ${vol}`)
 
-        res.render("index.ejs",{ data:[Math.floor(Math.random() * result.length)] ,
-         });
+        // res.render("index.ejs",{ data:[Math.floor(Math.random() * result.length)] ,
+        //  });
     }
     catch(error){
         console.error("failed to make request",error.message);
