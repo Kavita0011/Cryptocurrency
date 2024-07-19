@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/styles/index.css">
+  <title>My Crypto website</title>
+</head>
+
+<body>
+  <div class="container">
+    <h1>HODLINFO</h1>
+
+    <form action="/" id="form" class="form" method="POST">
+      <select name="type" class="form-select">
+        <option value="inr" data-display="Select">INR</option>
+      </select>
+      <select name="Crypto" class="form-select">
+        <option value="">Choose Bitcoin</option>
+        <option value="btcinr">BTC</option>
+        <option value="usdtinr">USDT</option>
+        <option value="xrpinr">XRP</option>
+        <option value="ethinr">ETH</option>
+        <option value="trxinr">TRX</option>
+        <option value="zecinr">ZEC</option>
+        <option value="xeminr">XEM</option>
+        <option value="iostinr">IOST</option>
+        <option value="wininr">WIN</option>
+        <option value="bttinr">BTT</option>
+      </select>
+      <button type="submit" class="form-submit">submit</button>
+    </form>
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>buy</th>
+        <th>last</th>
+        <th>Buy Price</th>
+        <th>Sell price</th>
+        <th>volume</th>
+        <th>base_unit</th>
+      </tr>
+        <td>btc</td>
+        <td>235000</td>
+        <td>235000.0</td>
+        <td>2250000</td>
+        <td>303000.0</td>
+        <td>155.67620000.2</td>
+        <td>235000</td>
+      </tr>
+      <tr>
+        <td>btc</td>
+        <td>235000</td>
+        <td>235000.0</td>
+        <td>2250000</td>
+        <td>303000.0</td>
+        <td>155.67620000.2</td>
+        <td>235000</td>
+      </tr>
+      
+    </table>
+    <section id="cards" class="cards">
+      <%if (locals.data) {%>
+
+        <article class="card-item">
+          <h2 class="card-activity">
+          Base_unit :  <%=data.base_unit %>
+          </h2>
+          <div class="card-info">
+            <span class="card-type">
+             Currency Buy : <%=data.buy%>
+            </span>
+            <span class="card-Crypto">
+              Crypto : <%= data.Crypto%>
+                <span class="card-number"></span>
+            </span>
+          </div>
+        </article>
+
+        <%}%>
+
+
+          <%if (locals.error) {%>
+            <div id="tag-error" class="tag-error">
+              <%=error%>
+            </div>
+            <%}%>
+    </section>
+  </div>
+
+</body>
+
+</html>
