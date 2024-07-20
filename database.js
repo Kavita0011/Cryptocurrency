@@ -48,33 +48,37 @@ app.post("/",async(req,res) =>{
         const type=req.body.type;
          const Crypto=req.body.Crypto;
         const response = await axios.get(`https://api.wazirx.com/api/v2/tickers`);
-        const result = response.data
-        ;
-        console.log(result);
-
-        for(i=1;i<=result.length;i++){
-        const bitcoin_name =Crypto;
-        const buy=response.data.ticker.buy;
-        const last=response.data.ticker.last;
-        const base_unit=response.data.ticker.base_unit;
-        const sell=response.data.ticker.sell;
-        const low=response.data.ticker.low;
-        const high=response.data.ticker.high;
-        const vol=response.data.ticker.vol;
-    
-    const insertQuery=`INSERT INTO crypto( id, name_crypto, last_price, buy_price, sell_price, volume_price, base_unit) VALUES ($1,$2,$3,$4,$5,$6,$7)`;
-    const values=` ${bitcoin_name},${last},${buy}, ${sell},  ${vol}, ${base_unit}`;
+        const result = response.data;
+        // console.log(result);
+         const values = Object.entries(result);
+         
+        console.log(values)
+        // for(i=1;i<=result.length;i++){
+        // const bitcoin_name =Crypto;
+        // const buy=result.ticker.buy;
+        // console.log(buy)
+//         const last=response.data.ticker.last;
+        // const base_unit=response.data.ticker.base_unit;
+        // const sell=response.data.ticker.sell;
+        // const low=response.data.ticker.low;
+        // const high=response.data.ticker.high;
+        // const vol=response.data.ticker.vol;
+    const insertQuery=`INSERT INTO crypto( id, name_crypto, last_price, buy_price, sell_price, volume_price, base_unit) VALUES ($1,$2,$3,$4,$5,$6)`;
+    //const values=` ${bitcoin_name},${last},${buy}, ${sell},  ${vol}, ${base_unit}`;
+    // for(i=0;i<=values.length;i++){
     db.query( insertQuery,values,(err,res)=>{
         if(err){
             console.log(err.stack);
         }else{
           quiz=res.rows;  
-        }})
-    }// console.log(`${bitcoin_name} ${sell} ${last} ${low} ${high} ${vol}`)
+        }
+    })
+    } 
+    // console.log(`${bitcoin_name} ${sell} ${last} ${low} ${high} ${vol}`)
 
         // res.render("index.ejs",{ data:[Math.floor(Math.random() * result.length)] ,
         //  });
-    }
+    // }
     catch(error){
         console.error("failed to make request",error.message);
         res.render("index.ejs",{ 

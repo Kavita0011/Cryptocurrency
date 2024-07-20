@@ -34,10 +34,9 @@
     
 <section id="cards" class="cards">
   <%if (locals.data) {%>
-
     <article class="card-item">
       <h2 class="card-activity">
-      Base_unit :  <%=data.base_unit %>
+      Base_unit :  <%=crypto.name %>
       </h2>
       <div class="card-info">
         <span class="card-type">
@@ -77,7 +76,8 @@
               </tr>
           <% }); %>
       <% } %>
-  </table>          <%if (locals.error) {%>
+  </table>
+            <%if (locals.error) {%>
             <div id="tag-error" class="tag-error">
               <%=error%>
             </div>
