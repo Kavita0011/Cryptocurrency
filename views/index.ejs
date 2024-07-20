@@ -10,79 +10,116 @@
 
 <body>
   <div class="container">
-    <h1>HODLINFO</h1>
-
-    <form action="/" id="form" class="form" method="POST">
-      <select name="type" class="form-select">
-        <option value="inr" data-display="Select">INR</option>
-      </select>
-      <select name="Crypto" class="form-select">
-        <option value="">Choose Bitcoin</option>
-        <option value="btcinr">BTC</option>
-        <option value="usdtinr">USDT</option>
-        <option value="xrpinr">XRP</option>
-        <option value="ethinr">ETH</option>
-        <option value="trxinr">TRX</option>
-        <option value="zecinr">ZEC</option>
-        <option value="xeminr">XEM</option>
-        <option value="iostinr">IOST</option>
-        <option value="wininr">WIN</option>
-        <option value="bttinr">BTT</option>
-      </select>
-      <button type="submit" class="form-submit">submit</button>
-    </form>
-    
-<section id="cards" class="cards">
-  <%if (locals.data) {%>
-    <article class="card-item">
-      <h2 class="card-activity">
-      Base_unit :  <%=crypto.name %>
-      </h2>
-      <div class="card-info">
-        <span class="card-type">
-         Currency Buy : <%=data.buy%>
-        </span>
-        <span class="card-Crypto">
-          Crypto : <%= data.Crypto%>
-            <span class="card-number"></span>
-        </span>
+    <div class="inner-container">
+      <div>
+        <h1>HODLINFO</h1>
       </div>
-    </article>
+      <div>
+        <form action="/" id="form" class="form" method="POST">
+          <div class="inner-container">
+            <div>
+              <select name="type" class="form-select">
+                <option value="inr" data-display="Select">INR</option>
+              </select>
+            </div>
+            <div>
+              <select name="Crypto" class="form-select">
+                <option value="">Choose Bitcoin</option>
+                <option value="btcinr">BTC</option>
+                <option value="usdtinr">USDT</option>
+                <option value="xrpinr">XRP</option>
+                <option value="ethinr">ETH</option>
+                <option value="trxinr">TRX</option>
+                <option value="zecinr">ZEC</option>
+                <option value="xeminr">XEM</option>
+                <option value="iostinr">IOST</option>
+                <option value="wininr">WIN</option>
+                <option value="bttinr">BTT</option>
+              </select>
+            </div>
+            <div>
+              <input type="submit" class="form-submit">
+            </div>
+          </div>
+        </form>
 
-    <%}%>
+      </div>
+      <div>
+        <label class="switch">
+          <input type="checkbox" onclick="mode()">
+          <span class="slider round"></span>
+        </label>
+        <script>function mode() {
+            var element = document.body;
+            element.classList.toggle("dark-mode");
+          }</script>
+      </div>
+    </div>
+    <div>
+      <section id="cards" class="cards"></section>
+      <section id="cards" class="cards">
+        <%if (locals.data) {%>
+          <article class="card-item">
+            <h2 class="card-activity">
+              Base_unit : <%=crypto.name %>
+            </h2>
+            <div class="card-info">
+              <span class="card-type">
+                Currency Buy : <%=data.buy%>
+              </span>
+              <span class="card-Crypto">
+                Crypto : <%= data.Crypto%>
+                  <span class="card-number"></span>
+              </span>
+            </div>
+          </article>
 
-
-
+          <%}%>
+    </div>
     <table>
       <tr>
-          <th>Name</th>
-          <th>Buy</th>
-          <th>Last</th>
-          <th>Buy Price</th>
-          <th>Sell Price</th>
-          <th>Volume</th>
-          <th>Base Unit</th>
+        <th>Name</th>
+        <th>Buy</th>
+        <th>Last</th>
+        <th>Buy Price</th>
+        <th>Sell Price</th>
+        <th>Volume</th>
+        <th>Base Unit</th>
       </tr>
       <% if (locals.data) { %>
-          <% data.forEach(crypto => { %>
-              <tr>
-                  <td><%= crypto.name %></td>
-                  <td><%= crypto.buy %></td>
-                  <td><%= crypto.last %></td>
-                  <td><%= crypto.buy %></td>
-                  <td><%= crypto.sell %></td>
-                  <td><%= crypto.volume %></td>
-                  <td><%= crypto.base_unit %></td>
-              </tr>
+        <% data.forEach(crypto=> { %>
+          <tr>
+            <td>
+              <%= crypto.name %>
+            </td>
+            <td>
+              <%= crypto.buy %>
+            </td>
+            <td>
+              <%= crypto.last %>
+            </td>
+            <td>
+              <%= crypto.buy %>
+            </td>
+            <td>
+              <%= crypto.sell %>
+            </td>
+            <td>
+              <%= crypto.volume %>
+            </td>
+            <td>
+              <%= crypto.base_unit %>
+            </td>
+          </tr>
           <% }); %>
-      <% } %>
-  </table>
-            <%if (locals.error) {%>
-            <div id="tag-error" class="tag-error">
-              <%=error%>
-            </div>
-            <%}%>
-    </section>
+            <% } %>
+    </table>
+    <%if (locals.error) {%>
+      <div id="tag-error" class="tag-error">
+        <%=error%>
+      </div>
+      <%}%>
+        </section>
   </div>
 
 </body>

@@ -50,22 +50,22 @@ app.post("/",async(req,res) =>{
         const response = await axios.get(`https://api.wazirx.com/api/v2/tickers`);
         const result = response.data;
         // console.log(result);
-         const values = Object.entries(result);
-         
-        console.log(values)
+         let values=[]
+          values=Object.entries(result);
+         const value=Object.entries(values)
+        // console.log(values)
         // for(i=1;i<=result.length;i++){
         // const bitcoin_name =Crypto;
         // const buy=result.ticker.buy;
         // console.log(buy)
-//         const last=response.data.ticker.last;
+        // const last=response.data.ticker.last;
         // const base_unit=response.data.ticker.base_unit;
         // const sell=response.data.ticker.sell;
         // const low=response.data.ticker.low;
         // const high=response.data.ticker.high;
         // const vol=response.data.ticker.vol;
     const insertQuery=`INSERT INTO crypto( id, name_crypto, last_price, buy_price, sell_price, volume_price, base_unit) VALUES ($1,$2,$3,$4,$5,$6)`;
-    //const values=` ${bitcoin_name},${last},${buy}, ${sell},  ${vol}, ${base_unit}`;
-    // for(i=0;i<=values.length;i++){
+    // const values=` ${bitcoin_name},${last},${buy}, ${sell},  ${vol}, ${base_unit}`;
     db.query( insertQuery,values,(err,res)=>{
         if(err){
             console.log(err.stack);
@@ -86,7 +86,7 @@ app.post("/",async(req,res) =>{
         });
     }
 });
-db.query('SELECT *FROM public.crypto',(err,res)=>{
+db.query('SELECT *FROM public.crypto ',(err,res)=>{
     if(err){
         console.log(err.stack);
     }else{
