@@ -85,15 +85,15 @@ table {
   .slider.round:before {
     border-radius: 50%;
   }
+
   td, th {
-    border: 1px solid #dddddd;
+    /* border: 1px solid #dddddd; */
     text-align: left;
     padding: 8px;
     
   }
-  
-  td{
-    background-color: #716767;
+  tr:hover{
+    background-color: #103f50;
   }
   h1,th{
     color: rgb(84, 194, 194);
